@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Utilities
 {
@@ -16,12 +12,14 @@ namespace Utilities
                "   Sair  > 2"
             };
 
+            Basics.Header();
+            Basics.Title01("Vamos ...");
             Console.WriteLine();
+
             foreach (string item in menu)
             {
                 Console.WriteLine(item);
             }
-
             string option = Basics.ValidateChoice(menu);
             return option;
         }

@@ -30,7 +30,14 @@ namespace Utilities
 
         public static void FinalMessage()
         {
-            Console.Write("O RSGymPT agradece a tua viita.\n\nPrime qualquer tecla para saíres.");
+            string message01 = "\nO RSGymPT agradece a tua visita.";
+            string message02 = "\n\nPrime qualquer tecla para saíres.";
+            Console.Clear();
+            Header();
+            Console.WriteLine(new string('_', message01.Length));
+            Console.WriteLine(message01);
+            Console.WriteLine(new string('_', message01.Length));
+            Console.WriteLine(message02);
             Console.ReadKey();
         }
 
