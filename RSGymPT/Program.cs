@@ -1,4 +1,5 @@
-﻿using RSGymPT.Classes;
+﻿using Microsoft.Win32;
+using RSGymPT.Classes;
 using System;
 using System.Runtime.Remoting.Channels;
 using Utilities;
@@ -13,47 +14,116 @@ namespace RSGymPT
 
             #region Instantiate Objects
             Client client01 = new Client();
+            PersonalTrainer personalTrainer01 = new PersonalTrainer();
             #endregion
 
             #region Create and Declare Variables
-            string loginChoice, navegationMenuChoice;
+            string loginChoice, navegationMenuChoice, requestMenuChoice, requestPtMenu, requestClientMenu;
+            bool endProgram = false;
+            Client validClient;
             #endregion
 
             #region Console Run
-
-            #endregion
+            Utilities.Basics.Header();
+            Utilities.Basics.Title01("Vamos lá?");
             loginChoice = Utilities.InitialMenu.Menu();
             if (loginChoice == "1")
             {
-                Console.Clear();                //teste
+                Console.Clear();
+                do
+                {
+                    Utilities.Basics.Header();
+                    client01.ReadCredentials();
+                    validClient = client01.ValidateCredentials(client01);
+                    if (validClient == null)
+                    {
+                        Console.WriteLine("Username ou password incorretos, tenta de novo.");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                } while (validClient == null);
 
-                Console.WriteLine("Bem vindo"); // Substitui login
+                while (endProgram == false)
+                {
+                    Utilities.Basics.Header();
+                    client01.Login(validClient.ClientName);
+                    navegationMenuChoice = Utilities.NavegationMenu.Menu();
+                    Console.Clear();
+                    switch (navegationMenuChoice)
+                    {
+                        case "1":
+                            requestMenuChoice = Utilities.RequestMenu.Menu();
 
-                Console.ReadKey();              //teste
-                Console.Clear();                //teste
+                            switch (requestMenuChoice)
+                            {
+                                case "1":
+                                    Console.ReadKey();
+                                    // Registar
+                                    break;
+                                case "2":
+                                    Console.ReadKey();
+                                    // Alterar
+                                    break;
+                                case "3":
+                                    Console.ReadKey();
+                                    // Eliminar
+                                    break;
+                                case "4":
+                                    Console.ReadKey();
+                                    // Consultar
+                                    break;
+                                case "5":
+                                    Console.ReadKey();
+                                    // Terminar
+                                    break;
+                                default:
+                                    Console.Clear();
+                                    break;
+                            }
+                            break;
 
-                navegationMenuChoice = Utilities.NavegationMenu.Menu();
-                Console.Clear();                //teste
-                switch (navegationMenuChoice)
-                { 
-                    case "1":
-                        Utilities.RequestMenu.Menu();
-                        //6 cases
-                        break;
-                    case "2":
-                        //2 cases
-                        break;
-                    default:
-                        //3 cases
-                        break;
+                        case "2":
+                            requestPtMenu = Utilities.PtMenu.Menu();
+                            switch (requestPtMenu)
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    personalTrainer01.ShowPt();
+                                    Console.ReadKey();
+                                    
+                                    break;
+                                default:
+                                    Console.Clear();
+                                    break;
+                            }
+                            break;
+
+                        default:
+                            requestClientMenu = Utilities.ClientMenu.Menu();
+                            switch (requestClientMenu)
+                            {
+                                case "1":
+                                    Console.ReadKey();
+                                    // Consultar
+                                    break;
+                                case "2":
+                                    Console.Clear();
+                                    break;
+                                default:
+                                    Console.Clear();
+                                    endProgram = true;
+                                    break;
+                            }
+                            break;
+                    }
                 }
-                
                 client01.Logout();
             }
             else 
             {
                 Utilities.Basics.FinalMessage();
             }
+            #endregion
         }
     }
 }

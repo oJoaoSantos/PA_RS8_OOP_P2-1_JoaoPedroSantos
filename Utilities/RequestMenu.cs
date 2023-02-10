@@ -20,7 +20,8 @@ namespace Utilities
                "   Voltar  > 6"
             };
 
-            foreach(string item in menu)
+            Console.WriteLine();
+            foreach (string item in menu)
             {
                 Console.WriteLine(item);
             }

@@ -13,7 +13,7 @@ namespace RSGymPT.Interfaces
         #endregion
 
         #region Methods
-        void Login();
+        void Login(string client);
         void Logout();
         #endregion
     }

@@ -16,7 +16,9 @@ namespace Utilities
                "Personal Trainer  > 2",
                "      Utilizador  > 3"
             };
-
+            
+            Utilities.Basics.Header();
+            Utilities.Basics.Title01("Menu Inicial");
             foreach (string item in menu)
             {
                 Console.WriteLine(item);

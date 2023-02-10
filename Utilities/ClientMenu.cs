@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace Utilities
 {
-    public class InitialMenu
+    public class ClientMenu
     {
         public static string Menu()
         {
             string[] menu =
             {
-               " Entrar  > 1",
-               "   Sair  > 2"
+               "Consultar  > 1",
+               "   Voltar  > 2",
+               "  Logoout  > 3"
             };
 
             Console.WriteLine();
