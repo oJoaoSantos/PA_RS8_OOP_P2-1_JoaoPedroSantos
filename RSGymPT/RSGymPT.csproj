@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Autentication.cs" />
     <Compile Include="Classes\PersonalTrainer.cs" />
     <Compile Include="Classes\Request.cs" />
     <Compile Include="Classes\Client.cs" />

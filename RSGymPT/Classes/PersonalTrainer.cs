@@ -33,7 +33,7 @@ namespace RSGymPT
             PersonalTrainer[] personalTrainers = new PersonalTrainer[]
                {
                 new PersonalTrainer { PtCode = "JPS", PtName = "João Pedro Loureiro Santos" },
-                new PersonalTrainer { PtCode = "MLS", PtName = "Matilde Sousa Ferreira" },
+                new PersonalTrainer { PtCode = "MSF", PtName = "Matilde Sousa Ferreira" },
                 new PersonalTrainer { PtCode = "EST", PtName = "Érica Santos Teixeira" }
                };
             return personalTrainers;
