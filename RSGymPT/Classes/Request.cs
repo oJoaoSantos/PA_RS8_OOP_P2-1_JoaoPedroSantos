@@ -92,11 +92,7 @@ namespace RSGymPT.Classes
         public Request NewRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestDateHours) // todo criar um array inicial com o tamanho do count do programcs para depois manipular.
         {
             Request newRequest = new Request { RequestNumber = requestNumber, ClientNumber = clientNumber, PtCode = ptCode, RequestDateHours = requestDateHours, RequestStatus = "Agendado" };
-            List<Request> Requests = RequestSave(requestNumber, clientNumber, ptCode, requestDateHours);
-            Requests.Add(newRequest);
             return newRequest;
-
-
         }
         #endregion
 
