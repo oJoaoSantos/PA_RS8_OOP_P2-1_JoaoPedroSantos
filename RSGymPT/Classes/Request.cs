@@ -1,5 +1,8 @@
 ﻿using RSGymPT.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Reflection.Emit;
+using System.Threading.Tasks;
 using Utilities;
 
 namespace RSGymPT.Classes
@@ -39,9 +42,11 @@ namespace RSGymPT.Classes
         #region Methods
 
         #region Data Creation
-        public string[,] Request() // todo criar um array inicial com o tamalho do count do programcs para depois manipular.
+        public List<Request> RequestSave(int requestNumber, int clientNumber, string ptCode, DateTime requestDateHours)
         {
-
+            List<Request> Requests = new List<Request>();
+            Requests.Add(NewRequest(requestNumber, clientNumber, ptCode, requestDateHours));
+            return Requests;
         }
         #endregion
 
@@ -72,7 +77,7 @@ namespace RSGymPT.Classes
             return founded;
         }
 
-        public void AskDateTime(Client client, int number)
+        public void AskDateTime()
         {
             //string dateTimeReaded, hoursReaded;
             RequestDateHours = DateTime.MinValue;
@@ -81,9 +86,16 @@ namespace RSGymPT.Classes
             //dateTimeReaded = Console.ReadLine();
 
             //RequestDateHours = Convert.ToDateTime(dateTimeReaded);
-            RequestStatus = "Agendado";
-            ClientNumber = client.ClientNumber;
-            RequestNumber = number;
+
+        }
+
+        public Request NewRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestDateHours) // todo criar um array inicial com o tamanho do count do programcs para depois manipular.
+        {
+            Request newRequest = new Request { RequestNumber = requestNumber, ClientNumber = clientNumber, PtCode = ptCode, RequestDateHours = requestDateHours, RequestStatus = "Agendado" };
+            List<Request> Requests = RequestSave(requestNumber, clientNumber, ptCode, requestDateHours);
+            Requests.Add(newRequest);
+            return newRequest;
+
 
         }
         #endregion
@@ -92,18 +104,13 @@ namespace RSGymPT.Classes
 
         #region Show Requests
 
-        public void ShowRequests()
+        public void ShowRequests(int requestNumber, int clientNumber, string ptCode, DateTime requestDateHours)
         {
-            Request[] requests = Request();
-            string line = "\nPedido  PT     Data       Horas  Estado   ";
-            Console.WriteLine(line);
-            Console.WriteLine(new string('_', line.Length));
+            List<Request> Requests = RequestSave(requestNumber, clientNumber, ptCode, requestDateHours);
 
-            for (int i = 0; i < requests.Length; i++)
+            foreach(Request rq in Requests)
             {
-                Console.WriteLine
-                    (
-                    $"{requests[i].RequestNumber.ToString("000")}\t{requests[i].PtCode}\t{requests[i].RequestDateHours.ToLongDateString()}\t{requests[i].RequestDateHours.ToShortTimeString()}\t{requests[i].RequestStatus}");               
+                Console.WriteLine($"{rq.RequestNumber}\t{rq.PtCode}\t{rq.RequestDateHours}\t{rq.RequestStatus}");
             }
         }
 
