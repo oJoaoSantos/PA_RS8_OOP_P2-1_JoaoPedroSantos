@@ -9,7 +9,8 @@ namespace RSGymPT.Interfaces
         int RequestNumber { get; }
         int ClientNumber { get; }
         string PtCode { get; }
-        DateTime RequestDateHours { get; }
+        DateTime RequestDate { get; }
+        DateTime RequestHours { get; }
         string RequestStatus { get; }
         #endregion
 

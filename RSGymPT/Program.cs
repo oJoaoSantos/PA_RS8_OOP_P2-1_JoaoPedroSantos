@@ -14,9 +14,7 @@ namespace RSGymPT
 
             #region Instantiate Objects
             Client client = new Client();
-            PersonalTrainer personalTrainer01 = new PersonalTrainer("JPS", "João Pedro Loureiro Santos");
-            PersonalTrainer personalTrainer02 = new PersonalTrainer("MSF", "Matilde Sousa Ferreira");
-            PersonalTrainer personalTrainer03 = new PersonalTrainer("EST", "Érica Santos Teixeira");
+            PersonalTrainer personalTrainer01 = new PersonalTrainer();
             Request request01 = new Request();
             #endregion
 
@@ -63,10 +61,9 @@ namespace RSGymPT
                                                 case "1":
                                                 Console.Clear();
                                                     request01.AskPtCode();
-                                                    request01.AskDateTime();
+                                                    request01.AskDataHours();
                                                     requestCount++;
-                                                    request01.NewRequest(requestCount, 1, request01.PtCode, request01.RequestDateHours);
-                                                    request01.RequestSave(requestCount, 1, request01.PtCode, request01.RequestDateHours);
+                                                    request01.NewRequest(requestCount, client.FindClientNumber(client), request01.PtCode, request01.RequestHours, request01.RequestDate);
                                                     Console.Clear();
                                                     
                                                     Console.ReadKey();
@@ -84,7 +81,7 @@ namespace RSGymPT
 
                                                 case "4":
                                                     Console.Clear();
-                                                    request01.ShowRequests(requestCount, 1, request01.PtCode, request01.RequestDateHours);
+                                                    request01.ShowRequests();
 
                                                     Console.ReadKey();
                                                 break;

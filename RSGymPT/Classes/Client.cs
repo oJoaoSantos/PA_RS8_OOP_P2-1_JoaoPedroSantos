@@ -78,6 +78,15 @@ namespace RSGymPT.Classes
         }
         #endregion
 
+
+        #region Find ClientNumber
+        public int FindClientNumber(Client client)
+        {
+            Client[] clients = CreateClient();
+            int clientNumber = Array.IndexOf(clients, client.ClientUserName)+1;
+            return clientNumber;
+        }
+        #endregion
         #endregion
 
     }

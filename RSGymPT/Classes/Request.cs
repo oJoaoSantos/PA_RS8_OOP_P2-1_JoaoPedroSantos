@@ -1,6 +1,7 @@
 ﻿using RSGymPT.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Reflection.Emit;
 using System.Threading.Tasks;
 using Utilities;
@@ -10,11 +11,17 @@ namespace RSGymPT.Classes
 
     internal class Request : IRequest
     {
+        #region Atributes
+        private List<Request> requestsData = new List<Request>();
+
+        #endregion
+
         #region Properties
         public int RequestNumber { get; set; }
         public int ClientNumber { get; set; }
         public string PtCode { get; set; }
-        public DateTime RequestDateHours { get; set; }
+        public DateTime RequestDate { get; set; }
+        public DateTime RequestHours { get; set; }
         public string RequestStatus { get; set; }
         #endregion
 
@@ -23,32 +30,25 @@ namespace RSGymPT.Classes
         { 
             RequestNumber = 0;
             ClientNumber = 0;
-            PtCode= string.Empty;
-            RequestDateHours = DateTime.MinValue;
+            PtCode = string.Empty;
+            RequestDate = DateTime.MinValue;
+            RequestHours = DateTime.MinValue;
             RequestStatus = string.Empty;
         }
 
-        public Request(int requestNumber, int numberOfRequests, int clientNumber, string ptCode, DateTime requestDateHours, string requestStatus)
+        public Request(int requestNumber, int numberOfRequests, int clientNumber, string ptCode, DateTime requestDate, DateTime requestHours, string requestStatus)
         {
             RequestNumber = requestNumber;
             ClientNumber = clientNumber;
             PtCode = ptCode;
-            RequestDateHours = requestDateHours;
+            RequestDate = requestDate;
+            RequestHours = requestHours;
             RequestStatus = requestStatus;
         }
 
         #endregion
 
         #region Methods
-
-        #region Data Creation
-        public List<Request> RequestSave(int requestNumber, int clientNumber, string ptCode, DateTime requestDateHours)
-        {
-            List<Request> Requests = new List<Request>();
-            Requests.Add(NewRequest(requestNumber, clientNumber, ptCode, requestDateHours));
-            return Requests;
-        }
-        #endregion
 
         #region Regist Request
 
@@ -77,22 +77,33 @@ namespace RSGymPT.Classes
             return founded;
         }
 
-        public void AskDateTime()
+        public void AskDataHours()
         {
-            //string dateTimeReaded, hoursReaded;
-            RequestDateHours = DateTime.MinValue;
+            bool dateConvertedSuccess = false, hoursConvertedSuccess = false;
+            string dateReaded, hoursReaded;
+            DateTime dateConverted, hoursConverted;
+            do
+            {
+                Console.Write("Data da Aula > ");
+                dateReaded = Console.ReadLine();
+                dateConvertedSuccess = DateTime.TryParse(dateReaded, out dateConverted);
+            } while (dateConvertedSuccess == false || dateConverted < DateTime.Now); // Só permite marcar aulas para o dia seguinte.
+            do
+            {
+                Console.Write("Horas da Aula > ");
+                hoursReaded = Console.ReadLine();
+                hoursConvertedSuccess = DateTime.TryParse(hoursReaded, out hoursConverted);
+            } while (hoursConvertedSuccess == false);
 
-            //Console.Write("Data e horas da sessão (dd.mm.aaaa.hh.mm) > ");
-            //dateTimeReaded = Console.ReadLine();
-
-            //RequestDateHours = Convert.ToDateTime(dateTimeReaded);
-
+            RequestDate = dateConverted;
+            RequestHours = hoursConverted;
         }
+        #endregion
 
-        public Request NewRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestDateHours) // todo criar um array inicial com o tamanho do count do programcs para depois manipular.
+        #region Create and Save New Requests Data
+        public void NewRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
         {
-            Request newRequest = new Request { RequestNumber = requestNumber, ClientNumber = clientNumber, PtCode = ptCode, RequestDateHours = requestDateHours, RequestStatus = "Agendado" };
-            return newRequest;
+            requestsData.Add( new Request { RequestNumber = requestNumber, ClientNumber = clientNumber, PtCode = ptCode, RequestHours = requestHours, RequestDate = requestDate, RequestStatus = "Agendado" });
         }
         #endregion
 
@@ -100,13 +111,11 @@ namespace RSGymPT.Classes
 
         #region Show Requests
 
-        public void ShowRequests(int requestNumber, int clientNumber, string ptCode, DateTime requestDateHours)
+        public void ShowRequests()
         {
-            List<Request> Requests = RequestSave(requestNumber, clientNumber, ptCode, requestDateHours);
-
-            foreach(Request rq in Requests)
+            foreach(Request rq in requestsData)
             {
-                Console.WriteLine($"{rq.RequestNumber}\t{rq.PtCode}\t{rq.RequestDateHours}\t{rq.RequestStatus}");
+                Console.WriteLine($"{rq.RequestNumber}\t{rq.PtCode}\t{rq.RequestDate}\t{rq.RequestHours}\t{rq.RequestStatus}");
             }
         }
 
