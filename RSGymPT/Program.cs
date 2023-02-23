@@ -1,8 +1,13 @@
-﻿using Microsoft.Win32;
-using RSGymPT.Classes;
+﻿using RSGymPT.Classes;
 using System;
-using System.Runtime.Remoting.Channels;
-using Utilities;
+
+// todo Títulos nos menus 
+// todo formato de hora e data nos requests 
+// todo mostrar os requests mais bonitos 
+// todo Consultar Clientes 
+// todo Interfaces
+// todo Limpar os usings
+// acrescentar as properties requeridas ao PT
 
 namespace RSGymPT
 {
@@ -26,14 +31,14 @@ namespace RSGymPT
             #endregion
 
             #region Console Run     
-                do
+                do 
                 {
                     loginChoice = Utilities.InitialMenu.Menu();
                     switch (loginChoice)
                     {
                         case "1":
                             client.ReadCredentials();
-                            validClient = client.ValidateCredentials(client); // todo atrinuir nome e numero ao cliente depois de validar
+                            validClient = client.ValidateCredentials(client);
                             if (validClient == null)
                             {
                                 Console.WriteLine("Username ou password incorretos");
@@ -69,6 +74,7 @@ namespace RSGymPT
                                                 case "2":
                                                     Console.Clear();
                                                     request01.AskRequestNumberToAlter();
+                                                    Console.Clear();
                                                     request01.AskPtCode();
                                                     request01.AskDataHours();
                                                     request01.AlterRequest(request01.RequestNumber, client.FindClientNumber(client), request01.PtCode, request01.RequestHours, request01.RequestDate);
@@ -76,8 +82,10 @@ namespace RSGymPT
                                                 break;
 
                                                 case "3":
-                                                    Console.ReadKey();
-                                                    // Eliminar
+                                                    Console.Clear();
+                                                    request01.AskRequestNumberToDrop();
+                                                    request01.DropRequest(request01.RequestNumber, client.FindClientNumber(client), request01.PtCode, request01.RequestHours, request01.RequestDate);
+                                                    Console.Clear();
                                                 break;
 
                                                 case "4":
@@ -88,8 +96,10 @@ namespace RSGymPT
                                                 break;
 
                                                 case "5":
-                                                    Console.ReadKey();
-                                                    // Terminar
+                                                    Console.Clear();
+                                                    request01.AskRequestNumberToTerminate();
+                                                    request01.TerminateRequest(request01.RequestNumber, client.FindClientNumber(client), request01.PtCode, DateTime.Now, DateTime.Now);
+                                                    Console.Clear();
                                                 break;
 
                                                 default:
@@ -114,7 +124,7 @@ namespace RSGymPT
                                             }
                                         break;
 
-                                        default:
+                                        case "3":
                                             requestClientMenu = Utilities.ClientMenu.Menu();
                                             switch (requestClientMenu)
                                             {
@@ -130,6 +140,10 @@ namespace RSGymPT
                                                     endProgram = true;
                                                     break;
                                             }
+                                        break;
+
+                                        default:
+                                            Console.Clear();
                                         break;
                                     }
                                 }

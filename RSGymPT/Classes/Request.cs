@@ -1,11 +1,7 @@
 ﻿using RSGymPT.Interfaces;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Net;
-using System.Reflection.Emit;
-using System.Threading.Tasks;
-using Utilities;
+
 
 namespace RSGymPT.Classes
 {
@@ -114,13 +110,16 @@ namespace RSGymPT.Classes
 
         public void AskRequestNumberToAlter()
         {
-            Console.Write("Número de Pedido a alterar > ");
-            string requestNumberReaded = Console.ReadLine();
-            Request finded = requestsData.Find(element => element.Equals(requestNumberReaded) && element.Equals("Agendado"));
-            //if (finded != null)
-            //{
-                RequestNumber = int.Parse(requestNumberReaded);
-            //};
+            Request finded;
+            string requestNumberReaded;
+            do
+            {
+                Console.Write("Número de Pedido a alterar > ");
+                requestNumberReaded = Console.ReadLine();
+                finded = requestsData.Find(element => element.Equals(requestNumberReaded) && element.Equals("Agendado"));
+            } while (finded != null);
+           
+            RequestNumber = int.Parse(requestNumberReaded);
         }
 
         public void AlterRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
@@ -129,6 +128,49 @@ namespace RSGymPT.Classes
             requestsData.Insert(requestNumber-1, new Request { RequestNumber = requestNumber, ClientNumber = clientNumber, PtCode = ptCode, RequestHours = requestHours, RequestDate = requestDate, RequestStatus = "Agendado" });
         }
 
+        #endregion
+
+        #region Drop Request
+        public void AskRequestNumberToDrop()
+        {
+            Request finded;
+            string requestNumberReaded;
+            do
+            {
+                Console.Write("Número de Pedido a Eliminar > ");
+                requestNumberReaded = Console.ReadLine();
+                finded = requestsData.Find(element => element.Equals(requestNumberReaded) && element.Equals("Agendado"));
+            } while (finded != null);
+
+            RequestNumber = int.Parse(requestNumberReaded);
+        }
+
+        public void DropRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
+        {
+            requestsData.RemoveAt(requestNumber - 1);
+        }
+        #endregion
+
+        #region Terminate Request
+        public void AskRequestNumberToTerminate()
+        {
+            Request finded;
+            string requestNumberReaded;
+            do
+            {
+                Console.Write("Número de Pedido a Terminar > ");
+                requestNumberReaded = Console.ReadLine();
+                finded = requestsData.Find(element => element.Equals(requestNumberReaded) && element.Equals("Agendado"));
+            } while (finded != null);
+
+            RequestNumber = int.Parse(requestNumberReaded);
+        }
+
+        public void TerminateRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
+        {
+            requestsData.RemoveAt(requestNumber - 1);
+            requestsData.Insert(requestNumber - 1, new Request { RequestNumber = requestNumber, ClientNumber = clientNumber, PtCode = ptCode, RequestHours = requestHours, RequestDate = requestDate, RequestStatus = "Terminado" });
+        }
         #endregion
 
         #region Show Requests
