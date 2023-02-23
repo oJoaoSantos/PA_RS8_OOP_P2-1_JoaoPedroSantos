@@ -1,5 +1,6 @@
 ﻿using RSGymPT.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Reflection.Emit;
@@ -100,12 +101,33 @@ namespace RSGymPT.Classes
         }
         #endregion
 
-        #region Create and Save New Requests Data
+        #region Save New Requests Data
         public void NewRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
         {
             requestsData.Add( new Request { RequestNumber = requestNumber, ClientNumber = clientNumber, PtCode = ptCode, RequestHours = requestHours, RequestDate = requestDate, RequestStatus = "Agendado" });
         }
         #endregion
+
+        #endregion
+
+        #region Alter Request
+
+        public void AskRequestNumberToAlter()
+        {
+            Console.Write("Número de Pedido a alterar > ");
+            string requestNumberReaded = Console.ReadLine();
+            Request finded = requestsData.Find(element => element.Equals(requestNumberReaded) && element.Equals("Agendado"));
+            //if (finded != null)
+            //{
+                RequestNumber = int.Parse(requestNumberReaded);
+            //};
+        }
+
+        public void AlterRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
+        {
+            requestsData.RemoveAt(requestNumber - 1);
+            requestsData.Insert(requestNumber-1, new Request { RequestNumber = requestNumber, ClientNumber = clientNumber, PtCode = ptCode, RequestHours = requestHours, RequestDate = requestDate, RequestStatus = "Agendado" });
+        }
 
         #endregion
 

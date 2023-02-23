@@ -25,10 +25,7 @@ namespace RSGymPT
             int requestCount = 0;
             #endregion
 
-            #region Console Run
-            
-            
-                
+            #region Console Run     
                 do
                 {
                     loginChoice = Utilities.InitialMenu.Menu();
@@ -59,7 +56,7 @@ namespace RSGymPT
                                             switch (requestMenuChoice)
                                             {
                                                 case "1":
-                                                Console.Clear();
+                                                    Console.Clear();
                                                     request01.AskPtCode();
                                                     request01.AskDataHours();
                                                     requestCount++;
@@ -70,8 +67,12 @@ namespace RSGymPT
                                                 break;
 
                                                 case "2":
-                                                    Console.ReadKey();
-                                                    // Alterar
+                                                    Console.Clear();
+                                                    request01.AskRequestNumberToAlter();
+                                                    request01.AskPtCode();
+                                                    request01.AskDataHours();
+                                                    request01.AlterRequest(request01.RequestNumber, client.FindClientNumber(client), request01.PtCode, request01.RequestHours, request01.RequestDate);
+                                                    Console.Clear();
                                                 break;
 
                                                 case "3":

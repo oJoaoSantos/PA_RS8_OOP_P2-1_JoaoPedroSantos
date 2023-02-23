@@ -78,7 +78,6 @@ namespace RSGymPT.Classes
         }
         #endregion
 
-
         #region Find ClientNumber
         public int FindClientNumber(Client client)
         {
@@ -87,6 +86,7 @@ namespace RSGymPT.Classes
             return clientNumber;
         }
         #endregion
+
         #endregion
 
     }
