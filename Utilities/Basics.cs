@@ -18,15 +18,30 @@ namespace Utilities
             Console.WriteLine(" )   )(__ )    ( __)( () )(  ()  )    ) __)  )(    ");
             Console.WriteLine("(_)(_)(___)   ( (_-. (  )  ) () (    (__)   (__)   ");
             Console.WriteLine("               (___) (__) (_)  (_)               \n");
-            Console.WriteLine("A nova App! Marca já as tuas aulas personalizadas.");
+            Console.WriteLine("A nova App! Gere aqui as tuas aulas personalizadas.");
         }
 
         public static void Title01(string title)
         {
-            string message = "A nova App! Marca já as tuas aulas personalizadas.";
+            string message = "A nova App! Gere aqui as tuas aulas personalizadas.";
             Console.WriteLine(new string('_', message.Length));
             Console.WriteLine($"\n{title.ToUpper()}");
             Console.WriteLine(new string('_', message.Length));
+        }
+
+        public static void Title02(string title)
+        {
+            string message = "A nova App! Gere aqui as tuas aulas personalizadas.";
+            Console.WriteLine(new string('_', message.Length));
+            Console.WriteLine($"\n{title}");
+            Console.WriteLine(new string('_', message.Length));
+        }
+
+        public static void Voltar()
+        {
+            Console.WriteLine("\n\nPrime qualquer tecla para voltar ao menu inicial.");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         public static void FinalMessage()

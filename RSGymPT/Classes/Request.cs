@@ -106,9 +106,8 @@ namespace RSGymPT.Classes
 
         #endregion
 
-        #region Alter Request
-
-        public void AskRequestNumberToAlter()
+        #region Ask Request Number
+        public void AskRequestNumber()
         {
             Request finded;
             string requestNumberReaded;
@@ -118,33 +117,20 @@ namespace RSGymPT.Classes
                 requestNumberReaded = Console.ReadLine();
                 finded = requestsData.Find(element => element.Equals(requestNumberReaded) && element.Equals("Agendado"));
             } while (finded != null);
-           
+
             RequestNumber = int.Parse(requestNumberReaded);
         }
+        #endregion
 
+        #region Alter Request
         public void AlterRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
         {
             requestsData.RemoveAt(requestNumber - 1);
             requestsData.Insert(requestNumber-1, new Request { RequestNumber = requestNumber, ClientNumber = clientNumber, PtCode = ptCode, RequestHours = requestHours, RequestDate = requestDate, RequestStatus = "Agendado" });
         }
-
         #endregion
 
         #region Drop Request
-        public void AskRequestNumberToDrop()
-        {
-            Request finded;
-            string requestNumberReaded;
-            do
-            {
-                Console.Write("Número de Pedido a Eliminar > ");
-                requestNumberReaded = Console.ReadLine();
-                finded = requestsData.Find(element => element.Equals(requestNumberReaded) && element.Equals("Agendado"));
-            } while (finded != null);
-
-            RequestNumber = int.Parse(requestNumberReaded);
-        }
-
         public void DropRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
         {
             requestsData.RemoveAt(requestNumber - 1);
@@ -152,20 +138,6 @@ namespace RSGymPT.Classes
         #endregion
 
         #region Terminate Request
-        public void AskRequestNumberToTerminate()
-        {
-            Request finded;
-            string requestNumberReaded;
-            do
-            {
-                Console.Write("Número de Pedido a Terminar > ");
-                requestNumberReaded = Console.ReadLine();
-                finded = requestsData.Find(element => element.Equals(requestNumberReaded) && element.Equals("Agendado"));
-            } while (finded != null);
-
-            RequestNumber = int.Parse(requestNumberReaded);
-        }
-
         public void TerminateRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
         {
             requestsData.RemoveAt(requestNumber - 1);

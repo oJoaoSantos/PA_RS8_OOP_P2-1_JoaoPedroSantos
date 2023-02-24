@@ -16,6 +16,10 @@ namespace Utilities
                "   Voltar  > 2"
             };
 
+            Basics.Header();
+            Basics.Title01("Personal Trainers");
+            Console.WriteLine();
+
             Console.WriteLine();
             foreach (string item in menu)
             {

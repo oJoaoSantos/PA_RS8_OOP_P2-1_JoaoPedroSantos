@@ -78,7 +78,25 @@ namespace RSGymPT.Classes
         }
         #endregion
 
-        #region Find ClientNumber
+        #region Show Clients
+        public void ShowClient()
+        {
+            Client[] client = CreateClient();
+            string line = $"\n{client[0].ClientNumber}     \t| {client[0].ClientName}\t| {client[0].ClientUserName}      ";
+
+
+            Console.WriteLine("\nNúmero\t| Nome            \t| UserName");
+            Console.WriteLine(new string('_', line.Length));
+
+            for (int i = 0; i < client.Length; i++)
+            {
+                Console.WriteLine($"\n{client[i].ClientNumber}     \t| {client[i].ClientName}\t| {client[i].ClientUserName}");
+                Console.WriteLine(new string('_', line.Length));
+            }
+        }
+        #endregion
+
+            #region Find ClientNumber
         public int FindClientNumber(Client client)
         {
             Client[] clients = CreateClient();

@@ -4,10 +4,10 @@ using System;
 // todo Títulos nos menus 
 // todo formato de hora e data nos requests 
 // todo mostrar os requests mais bonitos 
-// todo Consultar Clientes 
 // todo Interfaces
 // todo Limpar os usings
 // acrescentar as properties requeridas ao PT
+// id automáticos
 
 namespace RSGymPT
 {
@@ -62,44 +62,50 @@ namespace RSGymPT
                                             {
                                                 case "1":
                                                     Console.Clear();
+                                                    Utilities.Basics.Title01("Faz aqui o teu novo pedido");
                                                     request01.AskPtCode();
                                                     request01.AskDataHours();
                                                     requestCount++;
                                                     request01.NewRequest(requestCount, client.FindClientNumber(client), request01.PtCode, request01.RequestHours, request01.RequestDate);
-                                                    Console.Clear();
-                                                    
-                                                    Console.ReadKey();
+                                                    Utilities.Basics.Title02("Agendaste uma aula nova");
+                                                    Utilities.Basics.Voltar();
                                                 break;
 
                                                 case "2":
                                                     Console.Clear();
-                                                    request01.AskRequestNumberToAlter();
+                                                    Utilities.Basics.Title01("Altera um pedido");
+                                                    request01.AskRequestNumber();
                                                     Console.Clear();
                                                     request01.AskPtCode();
                                                     request01.AskDataHours();
                                                     request01.AlterRequest(request01.RequestNumber, client.FindClientNumber(client), request01.PtCode, request01.RequestHours, request01.RequestDate);
-                                                    Console.Clear();
+                                                    Utilities.Basics.Title02($"Alteraste o pedido número {request01.RequestNumber}.");
+                                                    Utilities.Basics.Voltar();
                                                 break;
 
                                                 case "3":
                                                     Console.Clear();
-                                                    request01.AskRequestNumberToDrop();
+                                                    Utilities.Basics.Title01("Elimina um pedido");
+                                                    request01.AskRequestNumber();
                                                     request01.DropRequest(request01.RequestNumber, client.FindClientNumber(client), request01.PtCode, request01.RequestHours, request01.RequestDate);
-                                                    Console.Clear();
+                                                    Utilities.Basics.Title02($"Eliminaste o pedido número {request01.RequestNumber}.");
+                                                    Utilities.Basics.Voltar();
                                                 break;
 
                                                 case "4":
                                                     Console.Clear();
+                                                    Utilities.Basics.Title01("Lista de Pedidos");
                                                     request01.ShowRequests();
-
-                                                    Console.ReadKey();
+                                                    Utilities.Basics.Voltar();
                                                 break;
 
                                                 case "5":
                                                     Console.Clear();
-                                                    request01.AskRequestNumberToTerminate();
+                                                    Utilities.Basics.Title01("Termina a tua aula");
+                                                    request01.AskRequestNumber();
                                                     request01.TerminateRequest(request01.RequestNumber, client.FindClientNumber(client), request01.PtCode, DateTime.Now, DateTime.Now);
-                                                    Console.Clear();
+                                                    Utilities.Basics.Title02($"Aula {request01.RequestNumber} terminada: {DateTime.Now.ToShortTimeString()}.");
+                                                    Utilities.Basics.Voltar();
                                                 break;
 
                                                 default:
@@ -115,12 +121,11 @@ namespace RSGymPT
                                                 case "1":
                                                     Console.Clear();
                                                     personalTrainer01.ShowPt();
-                                                    Console.ReadKey();
-
-                                                    break;
+                                                    Utilities.Basics.Voltar();
+                                                break;
                                                 default:
                                                     Console.Clear();
-                                                    break;
+                                                break;
                                             }
                                         break;
 
@@ -129,16 +134,17 @@ namespace RSGymPT
                                             switch (requestClientMenu)
                                             {
                                                 case "1":
-                                                    Console.ReadKey();
-                                                    // Consultar
-                                                    break;
+                                                    Console.Clear();
+                                                    client.ShowClient();
+                                                    Utilities.Basics.Voltar();
+                                                break;
                                                 case "2":
                                                     Console.Clear();
-                                                    break;
+                                                break;
                                                 default:
                                                     Console.Clear();
                                                     endProgram = true;
-                                                    break;
+                                                break;
                                             }
                                         break;
 

@@ -17,6 +17,10 @@ namespace Utilities
                "  Logoout  > 3"
             };
 
+            Basics.Header();
+            Basics.Title01("Menu do utilizador");
+            Console.WriteLine();
+
             Console.WriteLine();
             foreach (string item in menu)
             {

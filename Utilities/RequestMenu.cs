@@ -20,6 +20,10 @@ namespace Utilities
                "   Voltar  > 6"
             };
 
+            Basics.Header();
+            Basics.Title01("menu de pedidos");
+            Console.WriteLine();
+
             Console.WriteLine();
             foreach (string item in menu)
             {
