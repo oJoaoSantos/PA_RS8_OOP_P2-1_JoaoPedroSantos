@@ -43,12 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Clients.cs" />
+    <Compile Include="Classes\PersonalTrainers.cs" />
     <Compile Include="Classes\PersonalTrainer.cs" />
+    <Compile Include="Classes\Requests.cs" />
     <Compile Include="Classes\Request.cs" />
     <Compile Include="Classes\Client.cs" />
+    <Compile Include="Interfaces\IClients.cs" />
     <Compile Include="Interfaces\IPersonalTrainer.cs" />
+    <Compile Include="Interfaces\IPersonalTrainers.cs" />
     <Compile Include="Interfaces\IRequest.cs" />
     <Compile Include="Interfaces\IClient.cs" />
+    <Compile Include="Interfaces\IRequests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

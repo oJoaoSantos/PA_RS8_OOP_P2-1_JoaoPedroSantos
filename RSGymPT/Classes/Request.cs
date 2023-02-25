@@ -6,11 +6,9 @@ using System.Collections.Generic;
 namespace RSGymPT.Classes
 {
 
-    internal class Request : IRequest
+    internal class Request :IRequest
     {
-        #region Class Data
-        private List<Request> requestsData = new List<Request>();
-        #endregion
+        static int autoReqId = 1;
 
         #region Properties
         public int RequestNumber { get; set; }
@@ -23,8 +21,8 @@ namespace RSGymPT.Classes
 
         #region Constructors
         public Request()
-        { 
-            RequestNumber = 0;
+        {
+            RequestNumber = autoReqId++;
             ClientNumber = 0;
             PtCode = string.Empty;
             RequestDate = DateTime.MinValue;
@@ -32,9 +30,9 @@ namespace RSGymPT.Classes
             RequestStatus = string.Empty;
         }
 
-        public Request(int requestNumber, int numberOfRequests, int clientNumber, string ptCode, DateTime requestDate, DateTime requestHours, string requestStatus)
+        public Request(int numberOfRequests, int clientNumber, string ptCode, DateTime requestDate, DateTime requestHours, string requestStatus)
         {
-            RequestNumber = requestNumber;
+            RequestNumber = autoReqId++;
             ClientNumber = clientNumber;
             PtCode = ptCode;
             RequestDate = requestDate;
@@ -50,7 +48,7 @@ namespace RSGymPT.Classes
 
         #region Ask Request
         public void AskPtCode()
-        {            
+        {
             PersonalTrainer founded;
             string ptCodeReaded;
             do
@@ -70,90 +68,33 @@ namespace RSGymPT.Classes
             founded = Array.Find(personaltrainers, element => element.PtCode == ptCodeReaded);
             return founded;
         }
-
-        public void AskDataHours()
-        {
-            bool dateConvertedSuccess = false, hoursConvertedSuccess = false;
-            string dateReaded, hoursReaded;
-            DateTime dateConverted, hoursConverted;
-            do
-            {
-                Console.Write("Data da Aula > ");
-                dateReaded = Console.ReadLine();
-                dateConvertedSuccess = DateTime.TryParse(dateReaded, out dateConverted);
-            } while (dateConvertedSuccess == false || dateConverted < DateTime.Now); // Só permite marcar aulas para o dia seguinte.
-            do
-            {
-                Console.Write("Horas da Aula > ");
-                hoursReaded = Console.ReadLine();
-                hoursConvertedSuccess = DateTime.TryParse(hoursReaded, out hoursConverted);
-            } while (hoursConvertedSuccess == false);
-
-            RequestDate = dateConverted;
-            RequestHours = hoursConverted;
-        }
         #endregion
-
-        #region Save New Requests Data
-        public void NewRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
-        {
-            requestsData.Add( new Request { RequestNumber = requestNumber, ClientNumber = clientNumber, PtCode = ptCode, RequestHours = requestHours, RequestDate = requestDate, RequestStatus = "Agendado" });
-        }
-        #endregion
-
         #endregion
 
         #region Ask Request Number
         public void AskRequestNumber()
         {
-            Request finded;
+            Request finded = null;
             string requestNumberReaded;
-            do
+            Console.Write("Número de Pedido a alterar > ");
+            requestNumberReaded = Console.ReadLine();
+            if (finded != null)
             {
-                Console.Write("Número de Pedido a alterar > ");
-                requestNumberReaded = Console.ReadLine();
-                finded = requestsData.Find(element => element.Equals(requestNumberReaded) && element.Equals("Agendado"));
-            } while (finded != null);
-
-            RequestNumber = int.Parse(requestNumberReaded);
-        }
-        #endregion
-
-        #region Alter Request
-        public void AlterRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
-        {
-            requestsData.RemoveAt(requestNumber - 1);
-            requestsData.Insert(requestNumber-1, new Request { RequestNumber = requestNumber, ClientNumber = clientNumber, PtCode = ptCode, RequestHours = requestHours, RequestDate = requestDate, RequestStatus = "Agendado" });
-        }
-        #endregion
-
-        #region Drop Request
-        public void DropRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
-        {
-            requestsData.RemoveAt(requestNumber - 1);
+                RequestNumber = int.Parse(requestNumberReaded);
+            }
+            else
+            {
+                RequestNumber = 0;
+            }
         }
         #endregion
 
         #region Terminate Request
-        public void TerminateRequest(int requestNumber, int clientNumber, string ptCode, DateTime requestHours, DateTime requestDate)
+        public void TerminateRequest()
         {
-            requestsData.RemoveAt(requestNumber - 1);
-            requestsData.Insert(requestNumber - 1, new Request { RequestNumber = requestNumber, ClientNumber = clientNumber, PtCode = ptCode, RequestHours = requestHours, RequestDate = requestDate, RequestStatus = "Terminado" });
+            DateTime now = DateTime.Now;
+            RequestStatus = $"Terminado {now.ToShortDateString()} {now.ToShortTimeString()}";
         }
-        #endregion
-
-        #region Show Requests 
-
-        public void ShowRequests()
-        {
-            Utilities.Basics.Title01("Lista de Pedidos");
-
-            foreach (Request rq in requestsData)
-            {
-                Console.WriteLine($"\n\nNúmero: {rq.RequestNumber}\tPT: {rq.PtCode}\tData: {rq.RequestDate.ToLongDateString()}\tHoras: {rq.RequestHours.ToShortTimeString()}\tEstado: {rq.RequestStatus}");
-            }
-        }
-
         #endregion
 
         #endregion

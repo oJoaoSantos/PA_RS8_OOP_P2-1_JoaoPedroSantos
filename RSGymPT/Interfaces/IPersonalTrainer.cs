@@ -14,7 +14,7 @@ namespace RSGymPT.Interfaces
 
         #region Methods
         PersonalTrainer[] CreatePt();
-        void ShowPt();
+        void PrintPts();
         #endregion
     }
 }

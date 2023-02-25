@@ -67,5 +67,35 @@ namespace Utilities
             } while (founded == null);
             return option;
         }
+
+        public static DateTime AskData()
+        {
+            bool dateConvertedSuccess = false;
+            string dateReaded;
+            DateTime dateConverted;
+            do
+            {
+                Console.Write("Data da Aula > ");
+                dateReaded = Console.ReadLine();
+                dateConvertedSuccess = DateTime.TryParse(dateReaded, out dateConverted);
+            } while (dateConvertedSuccess == false || dateConverted < DateTime.Now); // Só permite marcar aulas para o dia seguinte.
+
+            return dateConverted;
+        }
+
+        public static DateTime AskHours()
+        {
+            bool  hoursConvertedSuccess = false;
+            string hoursReaded;
+            DateTime hoursConverted;
+            do
+            {
+                Console.Write("Horas da Aula > ");
+                hoursReaded = Console.ReadLine();
+                hoursConvertedSuccess = DateTime.TryParse(hoursReaded, out hoursConverted);
+            } while (hoursConvertedSuccess == false);
+
+            return hoursConverted;
+        }
     }
 }

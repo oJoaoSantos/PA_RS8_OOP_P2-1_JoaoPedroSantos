@@ -19,7 +19,6 @@ namespace RSGymPT.Interfaces
         Client ValidateCredentials(Client client);
         void Login(string client);
         void Logout();
-        void ShowClient();
         int FindClientNumber(Client client);
         #endregion
     }
