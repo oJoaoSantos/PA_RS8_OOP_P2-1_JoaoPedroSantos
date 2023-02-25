@@ -8,9 +8,8 @@ namespace RSGymPT.Classes
 
     internal class Request : IRequest
     {
-        #region Atributes
+        #region Class Data
         private List<Request> requestsData = new List<Request>();
-
         #endregion
 
         #region Properties
@@ -54,13 +53,11 @@ namespace RSGymPT.Classes
         {            
             PersonalTrainer founded;
             string ptCodeReaded;
-
-            Utilities.Basics.Title01("Pedido de Aula");
             do
             {
                 Console.Write("Código do PT > ");
                 ptCodeReaded = Console.ReadLine();
-                founded = ValidatePt(ptCodeReaded);
+                founded = ValidatePt(ptCodeReaded.ToUpper());
             } while (founded == null);
             PtCode = ptCodeReaded;
         }
@@ -145,13 +142,15 @@ namespace RSGymPT.Classes
         }
         #endregion
 
-        #region Show Requests
+        #region Show Requests 
 
         public void ShowRequests()
         {
-            foreach(Request rq in requestsData)
+            Utilities.Basics.Title01("Lista de Pedidos");
+
+            foreach (Request rq in requestsData)
             {
-                Console.WriteLine($"{rq.RequestNumber}\t{rq.PtCode}\t{rq.RequestDate}\t{rq.RequestHours}\t{rq.RequestStatus}");
+                Console.WriteLine($"\n\nNúmero: {rq.RequestNumber}\tPT: {rq.PtCode}\tData: {rq.RequestDate.ToLongDateString()}\tHoras: {rq.RequestHours.ToShortTimeString()}\tEstado: {rq.RequestStatus}");
             }
         }
 

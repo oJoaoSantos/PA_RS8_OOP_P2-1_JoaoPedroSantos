@@ -6,6 +6,10 @@ namespace RSGymPT.Classes
 {
     internal class Client : IClient
     {
+        #region Class Variables
+        int autoClientId = 1;
+        #endregion
+
         #region Properties
         public int ClientNumber { get; set; }
         public string ClientName { get; set; }
@@ -14,17 +18,25 @@ namespace RSGymPT.Classes
         #endregion
 
         #region Constructors
-
+        public Client()
+        { 
+            ClientNumber = autoClientId;
+            ClientName= string.Empty ;
+            ClientUserName = string.Empty ;
+            ClientPassword = string.Empty ;
+        }
+        public Client(int clientNumber, string clientName, string userName, string clientPassword)
+        { 
+            ClientNumber= clientNumber ;
+            ClientName= clientName ;
+            ClientUserName= userName ;
+            ClientPassword= clientPassword ;
+        }
         #endregion
 
         #region Methods
 
         #region Data Creation
-        public static int AutoIncrement(int actual = 1)
-        {
-            actual = actual++;
-            return actual;
-        }
         public Client[] CreateClient()
         {
             Client[] clients = new Client[]
@@ -78,25 +90,21 @@ namespace RSGymPT.Classes
         }
         #endregion
 
-        #region Show Clients
+        #region Show Client
         public void ShowClient()
         {
             Client[] client = CreateClient();
-            string line = $"\n{client[0].ClientNumber}     \t| {client[0].ClientName}\t| {client[0].ClientUserName}      ";
 
-
-            Console.WriteLine("\nNúmero\t| Nome            \t| UserName");
-            Console.WriteLine(new string('_', line.Length));
+            Utilities.Basics.Title01("Lista de Clientes");
 
             for (int i = 0; i < client.Length; i++)
             {
-                Console.WriteLine($"\n{client[i].ClientNumber}     \t| {client[i].ClientName}\t| {client[i].ClientUserName}");
-                Console.WriteLine(new string('_', line.Length));
+                Console.WriteLine($"\n\nNúmero: {client[i].ClientNumber}\tNome: {client[i].ClientName}\t\tUserName: {client[i].ClientUserName}");
             }
         }
         #endregion
 
-            #region Find ClientNumber
+        #region Find ClientNumber
         public int FindClientNumber(Client client)
         {
             Client[] clients = CreateClient();

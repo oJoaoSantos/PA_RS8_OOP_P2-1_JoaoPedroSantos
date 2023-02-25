@@ -1,12 +1,6 @@
 ﻿using RSGymPT.Classes;
 using System;
 
-// todo Títulos nos menus 
-// todo formato de hora e data nos requests 
-// todo mostrar os requests mais bonitos 
-// todo Interfaces
-// todo Limpar os usings
-// acrescentar as properties requeridas ao PT
 // id automáticos
 
 namespace RSGymPT
@@ -94,7 +88,6 @@ namespace RSGymPT
 
                                                 case "4":
                                                     Console.Clear();
-                                                    Utilities.Basics.Title01("Lista de Pedidos");
                                                     request01.ShowRequests();
                                                     Utilities.Basics.Voltar();
                                                 break;

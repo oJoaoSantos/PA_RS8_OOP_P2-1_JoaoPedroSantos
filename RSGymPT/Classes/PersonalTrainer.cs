@@ -1,28 +1,37 @@
-﻿using System;
+﻿using RSGymPT.Interfaces;
+using System;
 using Utilities;
 
 namespace RSGymPT
 {
-    internal class PersonalTrainer
+    internal class PersonalTrainer : IPersonalTrainer
     {
+        #region Class Variables
+        int autoPtId = 1;
+        #endregion
+
         #region Properties
+        public int PtId { get; set; }
         public string PtCode { get; set; }
         public string PtName { get; set;}
+        public string PtPhone { get; set; }
         #endregion
 
         #region Constructors
         public PersonalTrainer()
         {
+            PtId= autoPtId;
             PtCode= string.Empty;
             PtName= string.Empty;
+            PtPhone= string.Empty;
         }
-
-        public PersonalTrainer(string ptCode, string ptName)
+        public PersonalTrainer(int ptId, string ptCode, string ptName, string ptPhone)
         {
+            PtId = ptId;
             PtCode = ptCode;
             PtName = ptName;
+            PtPhone = ptPhone;
         }
-
         #endregion
 
         #region Methods
@@ -32,32 +41,26 @@ namespace RSGymPT
         {
             PersonalTrainer[] personalTrainers = new PersonalTrainer[]
                {
-                new PersonalTrainer { PtCode = "JPS", PtName = "João Pedro Loureiro Santos" },
-                new PersonalTrainer { PtCode = "MSF", PtName = "Matilde Sousa Ferreira" },
-                new PersonalTrainer { PtCode = "EST", PtName = "Érica Santos Teixeira" }
+                new PersonalTrainer { PtId = autoPtId++, PtCode = "JLS", PtName = "João Loureiro Santos", PtPhone = "912 345 678" },
+                new PersonalTrainer { PtId = autoPtId++, PtCode = "MSF", PtName = "Matilde Sousa Ferreira", PtPhone = "961 223 567" },
+                new PersonalTrainer { PtId = autoPtId++, PtCode = "EST", PtName = "Érica Santos Teixeira", PtPhone = "939 876 543" }
                };
             return personalTrainers;
         }
         #endregion
 
         #region Show PT
-
         public void ShowPt()
         {
             PersonalTrainer[] personalTrainers = CreatePt();
-            string line = $"\n{personalTrainers[0].PtCode}   \t| {personalTrainers[0].PtName}";
 
-
-            Console.WriteLine("\nCódigo\t| Nome");
-            Console.WriteLine(new string('_', line.Length));
+            Utilities.Basics.Title01("Lista de Personal Trainers");
 
             for (int i = 0; i < personalTrainers.Length; i++)
             {
-                Console.WriteLine($"\n{personalTrainers[i].PtCode}   \t| {personalTrainers[i].PtName}");
-                Console.WriteLine(new string('_', line.Length));
+                Console.WriteLine($"\n\nID: {personalTrainers[i].PtId}\tCódigo: {personalTrainers[i].PtCode}\tNome: {personalTrainers[i].PtName}\tContacto: {personalTrainers[i].PtPhone}");
             }
         }
-
         #endregion
 
         #endregion
