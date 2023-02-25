@@ -1,7 +1,7 @@
 ﻿using RSGymPT.Classes;
 using System;
 
-// id automáticos
+// todo id automático client
 
 namespace RSGymPT
 {
