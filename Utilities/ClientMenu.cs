@@ -11,7 +11,7 @@ namespace Utilities
             {
                "Consultar  > 1",
                "   Voltar  > 2",
-               "  Logoout  > 3"
+               "  Logout   > 3"
             };
 
             Basics.Header();

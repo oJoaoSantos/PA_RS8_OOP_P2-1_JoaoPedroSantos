@@ -1,9 +1,6 @@
 ﻿using RSGymPT.Classes;
 using System;
 
-
-// se não houver pedidos, imprime que não há pedidos.
-
 namespace RSGymPT
 {
     internal class Program
@@ -15,9 +12,8 @@ namespace RSGymPT
             {
                 #region Instantiate Objects
                 Client client = new Client();
-                Clients clients = new Clients();
-                PersonalTrainers personalTrainers = new PersonalTrainers();
-                Requests requests = new Requests();
+                PersonalTrainer personalTrainer = new PersonalTrainer();
+                Request request = new Request();
                 #endregion
 
                 #region Create and Declare Variables
@@ -30,6 +26,8 @@ namespace RSGymPT
                 do
                 {
                     loginChoice = Utilities.InitialMenu.Menu();
+                    client.CreateClient();
+                    personalTrainer.CreatePersonalTrainers();
                     switch (loginChoice)
                     {
                         case "1":
@@ -59,11 +57,11 @@ namespace RSGymPT
                                                 case "1":
                                                     Console.Clear();
                                                     Utilities.Basics.Title01("Faz aqui o teu novo pedido");
-                                                    string ptCode = personalTrainers.AskPtCode();
+                                                    string ptCode = personalTrainer.AskPtCode();
                                                     DateTime date = Utilities.Basics.AskData();
                                                     DateTime hours = Utilities.Basics.AskHours();
 
-                                                    requests.NewRequest(client.FindClientNumber(client), ptCode, date, hours);
+                                                    request.NewRequest(client.FindClientNumber(client), ptCode, date, hours);
                                                     Utilities.Basics.Title02("Agendaste uma aula nova");
                                                     Utilities.Basics.Voltar();
                                                     break;
@@ -71,14 +69,15 @@ namespace RSGymPT
                                                 case "2":
                                                     Console.Clear();
                                                     Utilities.Basics.Title01("Altera um pedido");
-                                                    int requestNumberAlter = requests.AskRequestNumber();
+                                                    int requestNumberAlter = request.AskRequestNumber();
                                                     if (requestNumberAlter > 0)
                                                     {
                                                         Console.Clear();
-                                                        string ptCode1 = personalTrainers.AskPtCode();
+                                                        Utilities.Basics.Title01("Define aqui o novo pedido");
+                                                        string ptCode1 = personalTrainer.AskPtCode();
                                                         DateTime date1 = Utilities.Basics.AskData();
                                                         DateTime hours1 = Utilities.Basics.AskHours();
-                                                        requests.AlterRequest(requestNumberAlter, client.FindClientNumber(client), ptCode1, hours1, date1);
+                                                        request.AlterRequest(requestNumberAlter, client.FindClientNumber(client), ptCode1, hours1, date1);
                                                         Utilities.Basics.Title02($"Alteraste o pedido número {requestNumberAlter}.");
                                                         Utilities.Basics.Voltar();
                                                     }
@@ -93,10 +92,10 @@ namespace RSGymPT
                                                 case "3":
                                                     Console.Clear();
                                                     Utilities.Basics.Title01("Elimina um pedido");
-                                                    int requestNumberDrop = requests.AskRequestNumber();
+                                                    int requestNumberDrop = request.AskRequestNumber();
                                                     if (requestNumberDrop > 0)
                                                     {
-                                                        requests.DropRequest(requestNumberDrop);
+                                                        request.DropRequest(requestNumberDrop);
                                                         Utilities.Basics.Title02($"Eliminaste o pedido número {requestNumberDrop}.");
                                                     }
                                                     else
@@ -108,17 +107,17 @@ namespace RSGymPT
 
                                                 case "4":
                                                     Console.Clear();
-                                                    requests.ShowRequests();
+                                                    request.ShowRequests();
                                                     Utilities.Basics.Voltar();
                                                     break;
 
                                                 case "5":
                                                     Console.Clear();
                                                     Utilities.Basics.Title01("Termina a tua aula");
-                                                    int requestNumberTerminate = requests.AskRequestNumber();
+                                                    int requestNumberTerminate = request.AskRequestNumber();
                                                     if (requestNumberTerminate > 0)
                                                     {
-                                                        requests.TerminateRequest(requestNumberTerminate);
+                                                        request.TerminateRequest(requestNumberTerminate);
                                                         Utilities.Basics.Title02($"Aula {requestNumberTerminate} terminada pelas {DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}.");
                                                     }
                                                     else
@@ -140,7 +139,7 @@ namespace RSGymPT
                                             {
                                                 case "1":
                                                     Console.Clear();
-                                                    personalTrainers.ShowPt();
+                                                    personalTrainer.ShowPt();
                                                     Utilities.Basics.Voltar();
                                                     break;
                                                 default:
@@ -155,7 +154,7 @@ namespace RSGymPT
                                             {
                                                 case "1":
                                                     Console.Clear();
-                                                    clients.ShowClient();
+                                                    client.ShowClient();
                                                     Utilities.Basics.Voltar();
                                                     break;
                                                 case "2":
@@ -187,7 +186,7 @@ namespace RSGymPT
                             break;
                     }
                 } while (validClient == null && loginChoice != "2");
-            #endregion
+                #endregion
             }
             catch (Exception)
             {

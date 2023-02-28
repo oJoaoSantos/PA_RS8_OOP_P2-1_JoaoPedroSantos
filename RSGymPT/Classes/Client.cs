@@ -1,13 +1,13 @@
 ﻿using RSGymPT.Interfaces;
 using System;
-using Utilities;
 
 namespace RSGymPT.Classes
 {
     internal class Client : IClient
     {
-        #region Class Variables
-        static int autoClientId = 1;
+        #region Class Variables and Data
+        static int autoClientId = 0;
+        Client[] clients;
         #endregion
 
         #region Properties
@@ -37,14 +37,13 @@ namespace RSGymPT.Classes
         #region Methods
 
         #region Data Creation
-        public Client[] CreateClient()
+        public void CreateClient()
         {
-            Client[] clients = new Client[]
+            clients = new Client[]
                {
                 new Client { ClientName = "Palmira Loureiro", ClientUserName = "palmira", ClientPassword = "Palmira123" },
                 new Client { ClientName = "António Duarte", ClientUserName = "antonio", ClientPassword = "Antonio123" },
                };
-            return clients;
         }
         #endregion
 
@@ -55,7 +54,7 @@ namespace RSGymPT.Classes
             Console.Clear();
             Utilities.Basics.Header();
             Utilities.Basics.Title01("Login");
-            Console.Write("Username  > ");
+            Console.Write("\nUsername  > ");
             ClientUserName = Console.ReadLine();
 
             Console.Write("Password  > ");
@@ -66,7 +65,6 @@ namespace RSGymPT.Classes
         #region ValidateCredentials
         public Client ValidateCredentials(Client client)
         {
-            Client[] clients = client.CreateClient();
             Client validClient = Array.Find(clients, clt => clt.ClientUserName.ToLower() == client.ClientUserName.ToLower() && clt.ClientPassword == client.ClientPassword);
             return validClient;
         }
@@ -92,9 +90,20 @@ namespace RSGymPT.Classes
         #region Find ClientNumber
         public int FindClientNumber(Client client)
         {
-            Client[] clients = CreateClient();
             int clientNumber = Array.IndexOf(clients, client.ClientUserName) + 1;
             return clientNumber;
+        }
+        #endregion
+
+        #region Show Client
+        public void ShowClient()
+        {
+            Utilities.Basics.Title01("Lista de Clientes");
+
+            for (int i = 0; i < clients.Length; i++)
+            {
+                Console.WriteLine($"\n\nNúmero: {clients[i].ClientNumber}\tNome: {clients[i].ClientName}\t\tUserName: {clients[i].ClientUserName}");
+            }
         }
         #endregion
 

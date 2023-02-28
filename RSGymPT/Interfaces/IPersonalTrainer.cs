@@ -1,5 +1,4 @@
-﻿using System;
-using Utilities;
+﻿
 
 namespace RSGymPT.Interfaces
 {
@@ -13,8 +12,23 @@ namespace RSGymPT.Interfaces
         #endregion
 
         #region Methods
-        PersonalTrainer[] CreatePt();
-        void PrintPts();
+
+        #region Data Creation
+        void CreatePersonalTrainers();
+        #endregion
+
+        #region Ask PT Code
+        string AskPtCode();
+        #endregion
+
+        #region Show PT
+        void ShowPt();
+        #endregion
+
+        #region Validate PT
+        PersonalTrainer ValidatePt(string ptCodeReaded);
+        #endregion
+
         #endregion
     }
 }
