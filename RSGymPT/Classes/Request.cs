@@ -107,7 +107,6 @@ namespace RSGymPT.Classes
 
         #region Cancel Request
         
-
         public void CancelRequest(int requestNumber)
         {
             Request finded;

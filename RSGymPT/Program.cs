@@ -17,7 +17,8 @@ namespace RSGymPT
                 #endregion
 
                 #region Create and Declare Variables
-                string loginChoice, navegationMenuChoice, requestMenuChoice, requestPtMenu, requestClientMenu, cancelMenuChoice;
+                string loginChoice, navegationMenuChoice, requestMenuChoice, requestPtMenu, requestClientMenu, cancelMenuChoice, ptCode;
+                int requestNumberAlter, requestNumberDrop, requestNumberTerminate;
                 bool endProgram = false;
                 Client validClient = null;
                 #endregion
@@ -57,7 +58,7 @@ namespace RSGymPT
                                                 case "1":
                                                     Console.Clear();
                                                     Utilities.Basics.Title01("Faz aqui o teu novo pedido");
-                                                    string ptCode = personalTrainer.AskPtCode();
+                                                    ptCode = personalTrainer.AskPtCode();
                                                     DateTime date = Utilities.Basics.AskData();
                                                     DateTime hours = Utilities.Basics.AskHours();
 
@@ -69,7 +70,7 @@ namespace RSGymPT
                                                 case "2":
                                                     Console.Clear();
                                                     Utilities.Basics.Title01("Altera um pedido");
-                                                    int requestNumberAlter = request.AskRequestNumber();
+                                                    requestNumberAlter = request.AskRequestNumber();
                                                     if (requestNumberAlter > 0)
                                                     {
                                                         cancelMenuChoice = Utilities.Cancel.Menu();
@@ -86,32 +87,32 @@ namespace RSGymPT
                                                                 Utilities.Basics.Title02($"Alteraste o pedido número {requestNumberAlter}.");
                                                                 Utilities.Basics.Voltar();
 
-                                                            break;
+                                                                break;
 
                                                             case "2":
                                                                 request.CancelRequest(requestNumberAlter);
                                                                 Utilities.Basics.Title02($"Cancelaste o pedido número {requestNumberAlter}.");
                                                                 Utilities.Basics.Voltar();
-                                                            break;
+                                                                break;
 
                                                             default:
                                                                 Utilities.Basics.Voltar();
-                                                            break;
+                                                                break;
                                                         }
                                                     }
                                                     else
                                                     {
                                                         Utilities.Basics.Title02("Número de pedido inválido.");
                                                         Utilities.Basics.Voltar();
-                                                    } 
-                                                    
+                                                    }
+
 
                                                     break;
 
                                                 case "3":
                                                     Console.Clear();
                                                     Utilities.Basics.Title01("Elimina um pedido");
-                                                    int requestNumberDrop = request.AskRequestNumber();
+                                                    requestNumberDrop = request.AskRequestNumber();
                                                     if (requestNumberDrop > 0)
                                                     {
                                                         request.DropRequest(requestNumberDrop);
@@ -133,7 +134,7 @@ namespace RSGymPT
                                                 case "5":
                                                     Console.Clear();
                                                     Utilities.Basics.Title01("Termina a tua aula");
-                                                    int requestNumberTerminate = request.AskRequestNumber();
+                                                    requestNumberTerminate = request.AskRequestNumber();
                                                     if (requestNumberTerminate > 0)
                                                     {
                                                         request.TerminateRequest(requestNumberTerminate);
