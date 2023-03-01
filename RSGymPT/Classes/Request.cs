@@ -105,6 +105,17 @@ namespace RSGymPT.Classes
         }
         #endregion
 
+        #region Cancel Request
+        
+
+        public void CancelRequest(int requestNumber)
+        {
+            Request finded;
+            finded = requestsData.Find(element => element.RequestNumber.Equals(requestNumber));
+            finded.RequestStatus = $"Cancelado";
+        }
+        #endregion
+
         #region Show Requests 
         public void ShowRequests()
         {

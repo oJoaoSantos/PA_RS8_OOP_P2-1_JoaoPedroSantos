@@ -67,10 +67,16 @@ namespace RSGymPT
         public void ShowPt()
         {
             Utilities.Basics.Title01("Lista de Personal Trainers");
+            personalTrainers.Sort((x, y) => string.Compare(x.PtName, y.PtName));
             foreach (PersonalTrainer pt in personalTrainers)
             {
                 Console.WriteLine($"\n\nID: {pt.PtId}\tCódigo: {pt.PtCode}\tNome: {pt.PtName}\tContacto: {pt.PtPhone}");
             }
+            //personalTrainers.Sort((x, y) => string.Compare(x.PtName, y.PtName));
+            //foreach (PersonalTrainer pt in personalTrainers)         // Prniting After alphabetical Sort.
+            //{ // Loop through List with foreach
+            //    Console.WriteLine(pt.Name);
+            //}
         }
         #endregion
 

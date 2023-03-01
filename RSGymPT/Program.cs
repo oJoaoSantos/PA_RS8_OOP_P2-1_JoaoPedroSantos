@@ -17,7 +17,7 @@ namespace RSGymPT
                 #endregion
 
                 #region Create and Declare Variables
-                string loginChoice, navegationMenuChoice, requestMenuChoice, requestPtMenu, requestClientMenu;
+                string loginChoice, navegationMenuChoice, requestMenuChoice, requestPtMenu, requestClientMenu, cancelMenuChoice;
                 bool endProgram = false;
                 Client validClient = null;
                 #endregion
@@ -72,20 +72,39 @@ namespace RSGymPT
                                                     int requestNumberAlter = request.AskRequestNumber();
                                                     if (requestNumberAlter > 0)
                                                     {
-                                                        Console.Clear();
-                                                        Utilities.Basics.Title01("Define aqui o novo pedido");
-                                                        string ptCode1 = personalTrainer.AskPtCode();
-                                                        DateTime date1 = Utilities.Basics.AskData();
-                                                        DateTime hours1 = Utilities.Basics.AskHours();
-                                                        request.AlterRequest(requestNumberAlter, client.FindClientNumber(client), ptCode1, hours1, date1);
-                                                        Utilities.Basics.Title02($"Alteraste o pedido número {requestNumberAlter}.");
-                                                        Utilities.Basics.Voltar();
+                                                        cancelMenuChoice = Utilities.Cancel.Menu();
+                                                        switch (cancelMenuChoice)
+                                                        {
+                                                            case "1":
+
+                                                                Console.Clear();
+                                                                Utilities.Basics.Title01("Define aqui o novo pedido");
+                                                                string ptCode1 = personalTrainer.AskPtCode();
+                                                                DateTime date1 = Utilities.Basics.AskData();
+                                                                DateTime hours1 = Utilities.Basics.AskHours();
+                                                                request.AlterRequest(requestNumberAlter, client.FindClientNumber(client), ptCode1, hours1, date1);
+                                                                Utilities.Basics.Title02($"Alteraste o pedido número {requestNumberAlter}.");
+                                                                Utilities.Basics.Voltar();
+
+                                                            break;
+
+                                                            case "2":
+                                                                request.CancelRequest(requestNumberAlter);
+                                                                Utilities.Basics.Title02($"Cancelaste o pedido número {requestNumberAlter}.");
+                                                                Utilities.Basics.Voltar();
+                                                            break;
+
+                                                            default:
+                                                                Utilities.Basics.Voltar();
+                                                            break;
+                                                        }
                                                     }
                                                     else
                                                     {
                                                         Utilities.Basics.Title02("Número de pedido inválido.");
                                                         Utilities.Basics.Voltar();
-                                                    }
+                                                    } 
+                                                    
 
                                                     break;
 

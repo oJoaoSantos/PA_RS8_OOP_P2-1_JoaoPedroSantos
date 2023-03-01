@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CancelMenu .cs" />
     <Compile Include="ClientMenu.cs" />
     <Compile Include="PtMenu.cs" />
     <Compile Include="NavegationMenu.cs" />
